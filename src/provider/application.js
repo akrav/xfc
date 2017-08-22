@@ -120,25 +120,8 @@ class Application extends EventEmitter {
 
       // 2: Begin launch and authorization sequence
       this.JSONRPC.notification('launch');
-
-      // 2a. We have a specific origin to trust (excluding wildcard *),
-      // wait for response to authorize.
-      if (this.acls.some((x) => x !== '*')) {
-        this.JSONRPC.request('authorizeConsumer', [])
-          .then(this.authorizeConsumer)
-          .catch(this.emitError);
-      }
-
-      // 2b. We don't know who to trust, challenge parent for secret
-      if (this.secret) {
-        this.JSONRPC.request('challengeConsumer', [])
-          .then(this.verifyChallenge)
-          .catch(this.emitError);
-      }
-
-    // If not embedded, immediately authorize content
     } else {
-      this.authorizeConsumer();
+      // this.authorizeConsumer();
     }
   }
 
@@ -193,6 +176,7 @@ class Application extends EventEmitter {
   * @param {string} secretAttempt - The secret string to verify
   */
   verifyChallenge(secretAttempt) {
+
     const authorize = () => {
       this.acls = ['*'];
       this.authorizeConsumer();
