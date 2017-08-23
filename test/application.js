@@ -92,22 +92,6 @@ describe('Application', () => {
       }));
     });
 
-    describe('#launch()', () => {
-      describe('if window.self === window.top', () => {
-        it("calls this.authorizeConsumer", sinon.test(function() {
-          const authorizeConsumer = this.stub(application, 'authorizeConsumer');
-          application.launch();
-
-          sinon.assert.called(authorizeConsumer);
-        }));
-      });
-
-      // TODO: add tests for window.self !== window.top scenario.
-      // Currtently there's no tests for it because it's hard
-      // to mock window object based on current source code.
-      // See more at: http://stackoverflow.com/questions/11959746/sinon-stub-for-window-location-search#answer-11972168
-    });
-
     describe('#handleConsumerMessage(event)', () => {
       const handle = sinon.stub(application.JSONRPC, 'handle');
       after(()=> handle.restore());
