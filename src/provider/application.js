@@ -120,8 +120,6 @@ class Application extends EventEmitter {
 
       // 2: Begin launch and authorization sequence
       this.JSONRPC.notification('launch');
-    } else {
-      // this.authorizeConsumer();
     }
   }
 
@@ -176,7 +174,6 @@ class Application extends EventEmitter {
   * @param {string} secretAttempt - The secret string to verify
   */
   verifyChallenge(secretAttempt) {
-
     const authorize = () => {
       this.acls = ['*'];
       this.authorizeConsumer();
